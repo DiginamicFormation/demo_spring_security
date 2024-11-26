@@ -15,6 +15,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Ce filtre HTTP est appelé systématiquement avant même d'accéder à un endpoint.
+ */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -28,9 +31,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-    	String authorizationHeader = request.getHeader("Authorization");
-        String jwt = null;
-        String username = null;
 
         // 1. Ignorer les endpoints non protégés (exemple : /api/auth/login)
         String requestPath = request.getRequestURI();
@@ -40,8 +40,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         // 2. Récupérer le JWT depuis le header Authorization
+        String authorizationHeader = request.getHeader("Authorization");
+        String jwt = null;
+        String username = null;
+        
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7);
+            jwt = authorizationHeader.substring(7); // Suppression de Bearer
             username = jwtUtil.extractUsername(jwt);
         }
 

@@ -1,10 +1,16 @@
 package fr.diginamic.demo_security.controllers;
 
+/**
+ * Objet transmis dans le body de la requête HTTP lors de l'authentification
+ */
 public class AuthRequest {
+    
+	/** username */
     private String username;
+    /** password */
     private String password;
-    // Getters and setters
-	/** Getter
+
+    /** Getter
 	 * @return the username
 	 */
 	public String getUsername() {

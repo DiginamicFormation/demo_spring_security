@@ -5,13 +5,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+/**
+ * Représente un rôle de l'utilisateur
+ */
 @Entity
 public class Role {
+    /** id */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; // Example: ROLE_USER, ROLE_ADMIN
+    /** ADMIN, USER, etc. */
+    private String name; 
 
 	/** Getter
 	 * @return the id

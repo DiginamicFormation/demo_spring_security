@@ -12,9 +12,15 @@ import org.springframework.stereotype.Service;
 import fr.diginamic.demo_security.entites.User;
 import fr.diginamic.demo_security.repositories.UserRepository;
 
+/**
+ * Utilisée par AuthController pour authentifier l'utilisateur en 2 temps:
+ * - il est appelé une 1ère fois indirectement par AuthenticationManager pour vérifier le user/password
+ * - il est appelé une 2nds fois de manière directe pour récupérer le détail.
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
+    /** Pour l'accès en base de données */
     @Autowired
     private UserRepository userRepository;
 

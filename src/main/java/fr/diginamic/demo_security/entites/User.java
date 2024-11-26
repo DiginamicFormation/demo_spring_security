@@ -11,16 +11,24 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 
+/**
+ * Représente un utilisateur
+ */
 @Entity
 public class User {
+    /** id */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /** username : email par exemple */
     private String username;
+    /** password */
     private String password;
+    /** permet de désactiver un utilisateur par exemple */
     private boolean enabled;
 
+    /** Liste des rôles */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
         joinColumns = @JoinColumn(name = "user_id"),

@@ -16,19 +16,29 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.diginamic.demo_security.security.CustomUserDetailsService;
 import fr.diginamic.demo_security.security.JwtUtil;
 
+/**
+ * Contrôleur en charge de l'authentification
+ */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
+    /** authenticationManager : permet d'authentifier l'utilisateur */
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /** Pour générer un token lors de l'authentification */
     @Autowired
     private JwtUtil jwtUtil;
 
+    /** Permet d'aller cherche en base les infos utilisateur */
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    /** Endpoint de LOGIN qui reçoit un body contenant 2 infos : username et password (non crypté)
+     * @param authRequest le body de la requête HTTP
+     * @return {@link ResponseEntity}
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
         try {
