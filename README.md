@@ -9,11 +9,11 @@ Exemple: @Secured("ADMIN")
 
 ### Se connecter   
 Envoyer une requête POST sur /api/auth/login avec le JSON suivant dans le body :  
-```json  
+
 {  
     "username":"root",  
     "password":"a"  
-}```  
+}    
 ![xxx](media/requete_login.jpg)
 Attention, pour que cela fonctionne il faut que dans la table user le mdp soit la valeur de a encryptée avec BCryptPasswordEncoder
   
