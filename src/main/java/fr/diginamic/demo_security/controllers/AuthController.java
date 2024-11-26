@@ -1,7 +1,6 @@
 package fr.diginamic.demo_security.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,7 +48,7 @@ public class AuthController {
             UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
             String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
-            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwt).build();
+            return ResponseEntity.ok(new AuthResponse(jwt));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
