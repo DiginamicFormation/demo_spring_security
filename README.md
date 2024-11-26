@@ -1,5 +1,10 @@
 ## Se connecter avec POSTMAN
 
+### Mise en place
+Créez une base de données de votre choix (exemple: myapp) puis modifiez le fichier application.properties  
+Dans la table ROLE insérez un rôle nommé ADMIN et un autre nommé USER  
+Insérez 2 utilisateurs dans la table USER et insérez les associations dans la table USER_ROLES. 
+
 ### Le modèle
 La classe User a une association ManyToMany avec  Role.   
 Le rôle a un nom par exemple ADMIN.  
