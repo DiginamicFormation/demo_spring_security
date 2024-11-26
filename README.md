@@ -40,7 +40,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string) {
-    return this.http.post<any>('/api/login', { username, password }).pipe(
+    return this.http.post<any>('/api/auth/login', { username, password }).pipe(
       tap((response) => {
         if (response.token) {
           this.saveToken(response.token); // Sauvegarde du token
