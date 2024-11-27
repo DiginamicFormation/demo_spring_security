@@ -31,25 +31,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-
-        // 1. Ignorer les endpoints non protégés (exemple : /api/auth/login)
-        String requestPath = request.getRequestURI();
-        if (requestPath.startsWith("/api/auth")) {
-        	chain.doFilter(request, response);
-            return; // Ne pas intervenir pour les endpoints non protégés
-        }
-
-        // 2. Récupérer le JWT depuis le header Authorization
+        // 1. Récupérer le token JWT dans le header depuis la clé Authorization
         String authorizationHeader = request.getHeader("Authorization");
         String jwt = null;
         String username = null;
         
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7); // Suppression de Bearer
-            username = jwtUtil.extractUsername(jwt);
+            jwt = authorizationHeader.substring(7); // Suppression du mot clé Bearer qui précède la valeur du token
+            username = jwtUtil.extractUsername(jwt); // extraction du username encrypté dans le token
         }
 
-        // 3. Valider le token si un username est présent et non authentifié
+        // 2. Valider le token si un username est présent et non authentifié
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
@@ -61,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        // 4. Continuer la chaîne de filtres
+        // 3. Continuer la chaîne de filtres
         chain.doFilter(request, response);
     }
 }
